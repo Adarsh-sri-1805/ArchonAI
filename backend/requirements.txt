@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+python-multipart
+pymupdf
+pandas
+python-docx
+sentence-transformers
+faiss-cpu
+langchain-text-splitters
+google-genai
