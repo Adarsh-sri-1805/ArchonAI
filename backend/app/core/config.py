@@ -13,6 +13,12 @@ class Settings:
 
     DATA_DIR = BASE_DIR / "data"
 
+    DATA_DIR.mkdir(exist_ok=True)
+
+    FAISS_INDEX_PATH = DATA_DIR / "faiss.index"
+
+    DOCUMENTS_PATH = DATA_DIR / "documents.pkl"
+
     # ==========================
     # Embedding
     # ==========================

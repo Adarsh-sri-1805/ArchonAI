@@ -10,9 +10,15 @@ from app.services.vector_store import VectorStore
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    app.state.vector_store = VectorStore(
+
+    vector_store = VectorStore(
         settings.EMBEDDING_DIMENSION
     )
+
+    vector_store.load()
+
+    app.state.vector_store = vector_store
+
     yield
 
 
