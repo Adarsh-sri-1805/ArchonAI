@@ -4,6 +4,7 @@ import faiss
 import numpy as np
 
 from app.core.config import settings
+from app.core.logger import logger
 from app.models.document import Document
 
 
@@ -31,6 +32,11 @@ class VectorStore:
         self.index.add(vectors)
 
         self.documents.extend(documents)
+
+        logger.info(
+            "Added %d documents to vector store",
+            len(documents),
+        )
 
         self.save()
 
@@ -67,9 +73,16 @@ class VectorStore:
                 }
             )
 
+        logger.info(
+            "Retrieved %d document(s)",
+            len(results),
+        )
+
         return results
 
     def save(self):
+
+        logger.info("Saving vector store...")
 
         faiss.write_index(
             self.index,
@@ -86,13 +99,26 @@ class VectorStore:
                 file,
             )
 
+        logger.info(
+            "Vector store saved successfully (%d documents)",
+            len(self.documents),
+        )
+
     def load(self):
+
+        logger.info("Loading vector store...")
 
         if settings.FAISS_INDEX_PATH.exists():
 
             self.index = faiss.read_index(
                 str(settings.FAISS_INDEX_PATH)
             )
+
+            logger.info("FAISS index loaded.")
+
+        else:
+
+            logger.info("No FAISS index found. Starting fresh.")
 
         if settings.DOCUMENTS_PATH.exists():
 
@@ -102,3 +128,12 @@ class VectorStore:
             ) as file:
 
                 self.documents = pickle.load(file)
+
+            logger.info(
+                "Loaded %d documents from disk.",
+                len(self.documents),
+            )
+
+        else:
+
+            logger.info("No saved documents found. Starting fresh.")

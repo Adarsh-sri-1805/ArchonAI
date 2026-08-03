@@ -8,7 +8,7 @@ def retrieve(
     query: str,
     vector_store: VectorStore,
     top_k: int | None = None,
-) -> list[Document]:
+):
     """
     Retrieve the most relevant documents for a query.
     """
@@ -24,14 +24,7 @@ def retrieve(
         [query_document]
     )[0]
 
-    results = vector_store.search(
+    return vector_store.search(
         query_embedding=query_embedding,
         top_k=top_k,
     )
-
-    documents = [
-        result["document"]
-        for result in results
-    ]
-
-    return documents

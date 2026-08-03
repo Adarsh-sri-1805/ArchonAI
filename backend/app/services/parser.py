@@ -3,32 +3,41 @@ from pathlib import Path
 import fitz  # PyMuPDF
 import pandas as pd
 from docx import Document
+import time
 
+from app.core.logger import logger
 from app.models.document import Document as ArchonDocument
 
 
-def parse_document(file_path: str | Path) -> list[ArchonDocument]:
-    """
-    Detect the file type and return a list of Documents.
-    """
+def parse_document(file_path: str | Path):
+    start = time.perf_counter()
+
     file_path = Path(file_path)
     suffix = file_path.suffix.lower()
 
+    logger.info("Parsing %s", file_path.name)
+
     if suffix == ".pdf":
-        return _parse_pdf(file_path)
+        documents = _parse_pdf(file_path)
 
     elif suffix == ".csv":
-        return _parse_csv(file_path)
+        documents = _parse_csv(file_path)
 
     elif suffix == ".docx":
-        return _parse_docx(file_path)
+        documents = _parse_docx(file_path)
 
     elif suffix == ".txt":
-        return _parse_txt(file_path)
+        documents = _parse_txt(file_path)
 
-    raise ValueError(f"Unsupported file type: {suffix}")
+    else:
+        raise ValueError(f"Unsupported file type: {suffix}")
 
+    logger.info(
+        "Parsing finished in %.2fs",
+        time.perf_counter() - start,
+    )
 
+    return documents
 def _parse_pdf(file_path: Path) -> list[ArchonDocument]:
     documents = []
 
