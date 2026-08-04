@@ -25,6 +25,7 @@ async def chat(
         results = retrieve(
             query=query,
             vector_store=request.app.state.vector_store,
+            bm25_store=request.app.state.bm25_store,
         )
 
         logger.info(

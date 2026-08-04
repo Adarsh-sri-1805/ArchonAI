@@ -21,7 +21,7 @@ def embed_documents(
     documents: list[Document],
 ) -> list[list[float]]:
     """
-    Generate embeddings for a list of Documents.
+    Generate embeddings for multiple documents.
     """
 
     model = get_model()
@@ -38,3 +38,21 @@ def embed_documents(
     )
 
     return embeddings.tolist()
+
+
+def embed_query(
+    query: str,
+) -> list[float]:
+    """
+    Generate embedding for a single query.
+    """
+
+    model = get_model()
+
+    embedding = model.encode(
+        query,
+        convert_to_numpy=True,
+        normalize_embeddings=True,
+    )
+
+    return embedding.tolist()

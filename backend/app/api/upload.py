@@ -60,8 +60,12 @@ async def upload_file(
         )
 
         request.app.state.vector_store.add(
-            embeddings=embeddings,
-            documents=documents,
+            embeddings,
+            documents,
+        )
+
+        request.app.state.bm25_store.add(
+            documents,
         )
 
         logger.info(

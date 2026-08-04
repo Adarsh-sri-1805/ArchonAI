@@ -21,7 +21,14 @@ async def lifespan(app: FastAPI):
 
     yield
 
+from app.services.bm25_store import BM25Store
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    app.state.vector_store = VectorStore(384)
+    app.state.bm25_store = BM25Store()
+
+    yield
 app = FastAPI(
     title="Archon AI",
     lifespan=lifespan,

@@ -56,6 +56,13 @@ class VectorStore:
             top_k,
         )
 
+        if len(scores[0]) == 0:
+            return []
+
+        best_score = scores[0][0]
+
+        relative_threshold = best_score * 0.90
+
         results = []
 
         for score, idx in zip(
@@ -66,6 +73,9 @@ class VectorStore:
             if idx == -1:
                 continue
 
+            if score < relative_threshold:
+                continue
+
             results.append(
                 {
                     "document": self.documents[idx],
@@ -74,12 +84,12 @@ class VectorStore:
             )
 
         logger.info(
-            "Retrieved %d document(s)",
+            "Retrieved %d document(s). Best score: %.4f",
             len(results),
+            best_score,
         )
 
         return results
-
     def save(self):
 
         logger.info("Saving vector store...")

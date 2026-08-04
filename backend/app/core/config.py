@@ -47,5 +47,12 @@ class Settings:
 
     GEMINI_MODEL = "gemini-3.6-flash"
 
+    # ==========================
+    # Retrieval
+    # ==========================
+
+    TOP_K = 5
+
+    SIMILARITY_THRESHOLD = 0.5
 
 settings = Settings()

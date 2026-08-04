@@ -8,3 +8,4 @@ sentence-transformers
 faiss-cpu
 langchain-text-splitters
 google-genai
+rank-bm25
