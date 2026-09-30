@@ -1,0 +1,133 @@
+/* ── UploadZone ───────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cardTitle {
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cardTitle svg { color: var(--primary-hover); }
+
+/* ── Drop zone ────────────────────────────────────── */
+.zone {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-sm);
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+  text-align: center;
+}
+
+.zone:hover, .zone.dragging {
+  border-color: var(--primary);
+  background: var(--primary-10);
+}
+
+.zone input { display: none; }
+
+.zoneIcon {
+  width: 52px;
+  height: 52px;
+  background: var(--primary-10);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-hover);
+}
+
+.zoneTitle {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.zoneSub {
+  font-size: 13px;
+  color: var(--secondary);
+}
+
+.browseLink {
+  color: var(--primary-hover);
+  font-weight: 500;
+}
+
+/* ── Status states ────────────────────────────────── */
+.uploading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 24px;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.uploadingLabel {
+  font-size: 14px;
+  color: var(--secondary);
+}
+
+.success {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: rgba(34,197,94,0.1);
+  border: 1px solid rgba(34,197,94,0.25);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+}
+
+.successIcon { color: #4ADE80; }
+
+.successText { color: var(--text); font-weight: 500; }
+
+.successSub { font-size: 12.5px; color: var(--secondary); margin-top: 2px; }
+
+.error {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 18px;
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.25);
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
+  color: #FCA5A5;
+}
+
+.resetBtn {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--secondary);
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.resetBtn:hover { color: var(--text); }

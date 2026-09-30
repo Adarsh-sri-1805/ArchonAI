@@ -1,0 +1,178 @@
+/* ── Message wrapper ─────────────────────────────── */
+.messageWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── User message ────────────────────────────────── */
+.userWrap {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.userBubble {
+  max-width: 68%;
+  background: var(--primary);
+  color: white;
+  border-radius: 18px 18px 4px 18px;
+  padding: 13px 18px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.userAvatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--primary-20);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* ── Assistant message ───────────────────────────── */
+.assistantWrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.aiIcon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.assistantCard {
+  flex: 1;
+  max-width: calc(100% - 46px);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px 18px 18px 18px;
+  padding: 18px 22px;
+}
+
+/* ── Markdown content ────────────────────────────── */
+.markdown {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.markdown p { margin-bottom: 12px; }
+.markdown p:last-child { margin-bottom: 0; }
+
+.markdown strong { font-weight: 600; }
+
+.markdown h1, .markdown h2, .markdown h3 {
+  font-weight: 600;
+  margin: 16px 0 8px;
+  line-height: 1.3;
+}
+.markdown h1 { font-size: 22px; }
+.markdown h2 { font-size: 19px; }
+.markdown h3 { font-size: 17px; }
+
+.markdown ul, .markdown ol {
+  margin: 8px 0 12px 20px;
+  list-style: disc;
+}
+.markdown ol { list-style: decimal; }
+.markdown li { margin-bottom: 4px; }
+
+.markdown code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  background: rgba(99,102,241,0.12);
+  padding: 2px 6px;
+  border-radius: 5px;
+  color: #818CF8;
+}
+
+.markdown a { color: var(--primary); text-decoration: underline; }
+
+/* ── Source chips (real API sources) ───────────────── */
+.citationRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.citationLabel {
+  font-size: 12px;
+  color: var(--secondary);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.sourceChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  background: var(--primary-10);
+  border: 1px solid rgba(99,102,241,0.25);
+  border-radius: 99px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--primary-hover);
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+  white-space: nowrap;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sourceChip:hover {
+  background: var(--primary-20);
+  border-color: var(--primary);
+}
+
+.sourceChipActive {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* ── Timestamp ───────────────────────────────────── */
+.timestamp {
+  font-size: 12px;
+  color: var(--secondary);
+  margin-top: 5px;
+  padding-left: 46px;
+}
+
+.timestampUser {
+  font-size: 12px;
+  color: var(--secondary);
+  margin-top: 5px;
+  text-align: right;
+  padding-right: 44px;
+}

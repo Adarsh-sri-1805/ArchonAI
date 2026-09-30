@@ -1,0 +1,146 @@
+/* ── KnowledgePanel ───────────────────────────────── */
+.panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* ── Page header ──────────────────────────────────── */
+.pageHeader {
+  padding: 28px 32px 0;
+  flex-shrink: 0;
+}
+
+.pageTitle {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  margin-bottom: 6px;
+}
+
+.pageSub {
+  font-size: 15px;
+  color: var(--secondary);
+  margin-bottom: 24px;
+}
+
+/* ── Scroll area ──────────────────────────────────── */
+.scrollArea {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 32px 32px;
+}
+
+/* ── Grid ─────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+/* ── Documents section ────────────────────────────── */
+.sectionTitle {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.badge {
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 2px 9px;
+  background: var(--primary-10);
+  color: var(--primary-hover);
+  border-radius: 99px;
+}
+
+/* ── Document list ────────────────────────────────── */
+.docList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.docItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--transition);
+}
+
+.docItem:hover { border-color: var(--border-hover); }
+
+.docIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-xs);
+  background: var(--primary-10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-hover);
+  flex-shrink: 0;
+}
+
+.docName {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'JetBrains Mono', monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.docMeta {
+  font-size: 12.5px;
+  color: var(--secondary);
+  white-space: nowrap;
+}
+
+.docStatusBadge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  background: rgba(34,197,94,0.12);
+  color: #4ADE80;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+/* ── Empty documents ──────────────────────────────── */
+.emptyDocs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 48px 24px;
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+  color: var(--secondary);
+}
+
+.emptyDocsTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.emptyDocsSub {
+  font-size: 13.5px;
+  max-width: 340px;
+  line-height: 1.6;
+}

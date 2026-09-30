@@ -1,0 +1,53 @@
+/* ── CodeBlock ───────────────────────────────────── */
+.wrap {
+  background: #0D0F17;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin: 12px 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #131620;
+  border-bottom: 1px solid var(--border);
+}
+
+.lang {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--secondary);
+  text-transform: lowercase;
+}
+
+.copyBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--secondary);
+  padding: 4px 10px;
+  border-radius: 5px;
+  transition: background var(--transition), color var(--transition);
+}
+
+.copyBtn:hover { background: #1E2130; color: var(--text); }
+
+.copyBtn.copied { color: #4ADE80; }
+
+.pre {
+  padding: 18px 20px;
+  overflow-x: auto;
+  margin: 0;
+}
+
+.code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14.5px;
+  line-height: 1.75;
+  background: transparent !important;
+}

@@ -1,86 +1,44 @@
+"""
+app/api/upload.py
+------------------
+Upload endpoint – now delegates all heavy work to ``IndexingService``.
+The router only validates the request and returns a tiny JSON response.
+"""
+from __future__ import annotations
+
 import time
 from pathlib import Path
 
 from fastapi import APIRouter, File, HTTPException, Request, UploadFile
 
 from app.core.logger import logger
-from app.services.chunker import chunk_documents
-from app.services.embedder import embed_documents
-from app.services.parser import parse_document
+from app.services.indexing_service import IndexingService
 
 router = APIRouter()
 
-UPLOAD_DIR = Path("uploads")
-UPLOAD_DIR.mkdir(exist_ok=True)
-
-
 @router.post("/upload")
-async def upload_file(
-    request: Request,
-    file: UploadFile = File(...),
-):
+async def upload_file(request: Request, file: UploadFile = File(...)):
     start = time.perf_counter()
-
     try:
         logger.info("Upload request received: %s", file.filename)
-
-        file_path = UPLOAD_DIR / file.filename
-
+        upload_dir: Path = request.app.state.upload_dir  # set in lifespan or fallback
+        upload_dir.mkdir(parents=True, exist_ok=True)
+        file_path = upload_dir / file.filename
         with open(file_path, "wb") as f:
             f.write(await file.read())
+        logger.info("File saved: %s", file_path)
 
-        logger.info("File saved: %s", file.filename)
-
-        parse_start = time.perf_counter()
-
-        documents = parse_document(file_path)
-
-        logger.info(
-            "Parsing completed in %.2fs",
-            time.perf_counter() - parse_start,
-        )
-
-        chunk_start = time.perf_counter()
-
-        documents = chunk_documents(documents)
+        # --------------- Delegation ----------------
+        indexing: IndexingService = request.app.state.indexing_service
+        chunks_indexed = indexing.index_file(file_path)
+        # -------------------------------------------
 
         logger.info(
-            "Chunking completed in %.2fs (%d chunks)",
-            time.perf_counter() - chunk_start,
-            len(documents),
-        )
-
-        embedding_start = time.perf_counter()
-
-        embeddings = embed_documents(documents)
-
-        logger.info(
-            "Embeddings generated in %.2fs",
-            time.perf_counter() - embedding_start,
-        )
-
-        request.app.state.vector_store.add(
-            embeddings,
-            documents,
-        )
-
-        request.app.state.bm25_store.add(
-            documents,
-        )
-
-        logger.info(
-            "Upload completed in %.2fs",
+            "Upload completed in %.2fs – %d chunks indexed",
             time.perf_counter() - start,
+            chunks_indexed,
         )
-
-        return {
-            "message": "File uploaded successfully",
-            "chunks": len(documents),
-        }
-
+        return {"message": "File uploaded successfully", "chunks": chunks_indexed}
     except Exception as e:
         logger.exception("Upload failed")
-        raise HTTPException(
-            status_code=500,
-            detail=str(e),
-        )
+        raise HTTPException(status_code=500, detail=str(e))

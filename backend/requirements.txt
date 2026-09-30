@@ -8,4 +8,9 @@ sentence-transformers
 faiss-cpu
 langchain-text-splitters
 google-genai
+groq
 rank-bm25
+GitPython
+pydantic-settings
+sqlalchemy
+python-dotenv

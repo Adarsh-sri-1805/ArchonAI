@@ -1,0 +1,133 @@
+/* ── GithubIngest ─────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cardTitle {
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cardTitle svg { color: var(--primary-hover); }
+
+/* ── Input row ────────────────────────────────────── */
+.inputRow {
+  display: flex;
+  gap: 10px;
+}
+
+.urlInput {
+  flex: 1;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 11px 14px;
+  font-size: 14.5px;
+  color: var(--text);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.urlInput::placeholder { color: var(--secondary); font-family: inherit; }
+
+.urlInput:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+}
+
+.indexBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 20px;
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius-sm);
+  font-size: 14.5px;
+  font-weight: 500;
+  transition: background var(--transition);
+  white-space: nowrap;
+}
+
+.indexBtn:hover:not(:disabled) { background: var(--primary-hover); color: var(--bg); }
+.indexBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Loading ──────────────────────────────────────── */
+.loadingRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  font-size: 14px;
+  color: var(--secondary);
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Success / Error ──────────────────────────────── */
+.success {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 18px;
+  background: rgba(34,197,94,0.1);
+  border: 1px solid rgba(34,197,94,0.25);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+}
+
+.successIcon { color: #4ADE80; flex-shrink: 0; margin-top: 2px; }
+
+.successText { font-weight: 600; color: var(--text); }
+
+.successSub { font-size: 12.5px; color: var(--secondary); margin-top: 3px; font-family: 'JetBrains Mono', monospace; }
+
+.error {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 18px;
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.25);
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
+  color: #FCA5A5;
+}
+
+.resetBtn {
+  font-size: 13px;
+  color: var(--secondary);
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  margin-top: 6px;
+  display: block;
+}
+
+.resetBtn:hover { color: var(--text); }
+
+.hint {
+  font-size: 12.5px;
+  color: var(--secondary);
+}

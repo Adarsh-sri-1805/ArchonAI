@@ -1,0 +1,130 @@
+/* ── FileCard ────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.card:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.card.active {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+}
+
+/* ── Header row ──────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.fileInfo { overflow: hidden; flex: 1; }
+
+.filename {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card.active .filename { color: var(--primary-hover); }
+
+.filepath {
+  font-size: 11.5px;
+  color: var(--secondary);
+  font-family: 'JetBrains Mono', monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+
+/* ── Score badge ─────────────────────────────────── */
+.scoreBadge {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary-hover);
+  background: var(--primary-10);
+  padding: 3px 9px;
+  border-radius: 99px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Relevance bar ───────────────────────────────── */
+.relevanceWrap {
+  margin-bottom: 12px;
+}
+
+.relevanceLabel {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: var(--secondary);
+  margin-bottom: 5px;
+}
+
+.bar {
+  height: 4px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 99px;
+  transition: width 0.4s ease;
+}
+
+/* ── Code snippet ────────────────────────────────── */
+.snippet {
+  background: #0D0F17;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  padding: 10px 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: #94A3B8;
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+  max-height: 82px;
+}
+
+/* ── Footer row ──────────────────────────────────── */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.lines {
+  font-size: 12px;
+  color: var(--secondary);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.langBadge {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--secondary);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  padding: 2px 9px;
+  border-radius: 99px;
+}

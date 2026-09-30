@@ -1,30 +1,39 @@
 from fastapi import APIRouter, HTTPException, Request
 
-from app.services.embedder import embed_chunks
-
 router = APIRouter()
 
 
 @router.post("/search")
-async def search(
+def search(
     request: Request,
-    query: str
+    query: str,
 ):
+    """
+    Hybrid search endpoint.
+    Delegates to RetrievalService (vector + BM25 + RRF + reranker).
+    Runs synchronously in threadpool to keep FastAPI event loop responsive.
+    """
     try:
-        query_embedding = embed_chunks([query])[0]
-
-        results = request.app.state.vector_store.search(
-            query_embedding,
-            top_k=5
-        )
+        results = request.app.state.retrieval_service.retrieve(query=query)
 
         return {
             "query": query,
-            "results": results
+            "results": [
+                {
+                    "score": round(result["score"], 4),
+                    "excerpt": (
+                        result["document"].page_content[:300] + "..."
+                        if len(result["document"].page_content) > 300
+                        else result["document"].page_content
+                    ),
+                    **result["document"].metadata,
+                }
+                for result in results
+            ],
         }
 
     except Exception as e:
         raise HTTPException(
             status_code=500,
-            detail=str(e)
+            detail=str(e),
         )

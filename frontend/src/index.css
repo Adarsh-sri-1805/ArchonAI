@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── Design Tokens — Dark Mode ─────────────────── */
+:root {
+  --bg:           #0D0F17;
+  --surface:      #13151F;
+  --surface-2:    #1A1D2B;
+  --primary:      #6366F1;
+  --primary-10:   rgba(99,102,241,0.12);
+  --primary-20:   rgba(99,102,241,0.22);
+  --primary-hover:#818CF8;
+  --text:         #F1F5F9;
+  --secondary:    #64748B;
+  --border:       #1E2130;
+  --border-hover: #2D3148;
+  --radius:       14px;
+  --radius-sm:    10px;
+  --radius-xs:    8px;
+  --shadow-sm:    0 1px 3px rgba(0,0,0,.4), 0 1px 2px rgba(0,0,0,.3);
+  --shadow-md:    0 4px 16px rgba(0,0,0,.5);
+  --sidebar-w:    280px;
+  --sidebar-collapsed: 72px;
+  --context-w:    340px;
+  --topbar-h:     60px;
+  --transition:   0.18s ease;
+}
+
+/* ── Reset ──────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root {
+  height: 100%;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 18px;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input, textarea { font-family: inherit; color: var(--text); }
+a { text-decoration: none; color: inherit; }
+ul, ol { list-style: none; }
+
+/* ── Scrollbar ──────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #3D4266; }
+
+/* ── Utilities ──────────────────────────────────── */
+.text-secondary { color: var(--secondary); }
+.text-primary   { color: var(--primary); }
+.font-mono      { font-family: 'JetBrains Mono', monospace; }
+.truncate       { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+/* ── Highlight.js dark theme ─────────────────────── */
+.hljs {
+  background: #0D0F17 !important;
+  color: #CBD5E1 !important;
+  padding: 0 !important;
+}
+.hljs-keyword   { color: #818CF8; font-weight: 500; }
+.hljs-string    { color: #4ADE80; }
+.hljs-comment   { color: #475569; font-style: italic; }
+.hljs-function  { color: #38BDF8; }
+.hljs-number    { color: #FB923C; }
+.hljs-built_in  { color: #22D3EE; }
+.hljs-title     { color: #A78BFA; }
+.hljs-params    { color: #94A3B8; }
+.hljs-attr      { color: #FBBF24; }
+.hljs-name      { color: #818CF8; }
+.hljs-tag       { color: #F472B6; }

@@ -1,0 +1,282 @@
+/* ── Sidebar shell ─────────────────────────────── */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  height: 100vh;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  transition: width var(--transition), min-width var(--transition);
+  overflow: hidden;
+  z-index: 10;
+}
+
+.sidebar.collapsed {
+  width: var(--sidebar-collapsed);
+  min-width: var(--sidebar-collapsed);
+}
+
+/* ── Top logo row ──────────────────────────────── */
+.logoRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  height: var(--topbar-h);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.logoWrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.logoIcon {
+  width: 34px;
+  height: 34px;
+  background: var(--primary);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.logoIcon svg { color: white; }
+
+.logoText {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+  opacity: 1;
+  transition: opacity var(--transition);
+}
+
+.sidebar.collapsed .logoText { opacity: 0; pointer-events: none; }
+
+.collapseBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--secondary);
+  flex-shrink: 0;
+  transition: background var(--transition), color var(--transition);
+}
+
+.collapseBtn:hover { background: var(--surface-2); color: var(--text); }
+
+/* ── New chat button ───────────────────────────── */
+.newChatWrap {
+  padding: 14px 12px 10px;
+  flex-shrink: 0;
+}
+
+.newChatBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 14px;
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: background var(--transition);
+}
+
+.newChatBtn:hover { background: var(--primary-hover); }
+
+.sidebar.collapsed .newChatBtn {
+  padding: 10px 0;
+  justify-content: center;
+}
+
+.newChatLabel {
+  opacity: 1;
+  transition: opacity var(--transition);
+  overflow: hidden;
+}
+
+.sidebar.collapsed .newChatLabel { opacity: 0; width: 0; }
+
+/* ── Nav sections ──────────────────────────────── */
+.nav {
+  flex-shrink: 0;
+  padding: 6px 10px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 12px;
+  border-radius: var(--radius-xs);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background var(--transition), color var(--transition);
+}
+
+.navItem:hover { background: var(--surface-2); color: var(--text); }
+.navItem.active { background: var(--primary-10); color: var(--primary); }
+
+.navItem svg { flex-shrink: 0; }
+
+.navLabel {
+  opacity: 1;
+  transition: opacity var(--transition);
+  overflow: hidden;
+}
+
+.sidebar.collapsed .navLabel { opacity: 0; width: 0; }
+
+/* ── Divider ────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 6px 12px;
+  flex-shrink: 0;
+}
+
+/* ── Section label ──────────────────────────────── */
+.sectionLabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--secondary);
+  padding: 12px 20px 6px;
+  white-space: nowrap;
+  opacity: 1;
+  transition: opacity var(--transition);
+}
+
+.sidebar.collapsed .sectionLabel { opacity: 0; }
+
+/* ── Scrollable content area ────────────────────── */
+.scrollArea {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 10px;
+}
+
+/* ── Recent chats list ──────────────────────────── */
+.chatList { padding: 0 10px; }
+
+.chatItem {
+  display: flex;
+  flex-direction: column;
+  padding: 9px 12px;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  transition: background var(--transition);
+  overflow: hidden;
+}
+
+.chatItem:hover { background: var(--surface-2); }
+.chatItem.active { background: var(--primary-10); }
+
+.chatTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chatItem.active .chatTitle { color: var(--primary); }
+
+.chatMeta {
+  font-size: 12px;
+  color: var(--secondary);
+  margin-top: 2px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.deleteBtn {
+  color: var(--secondary);
+  opacity: 0;
+  padding: 2px;
+  border-radius: 3px;
+  transition: opacity var(--transition), color var(--transition);
+  display: flex;
+  align-items: center;
+}
+
+.chatItem:hover .deleteBtn { opacity: 1; }
+.deleteBtn:hover { color: #EF4444; }
+
+.sidebar.collapsed .chatList { display: none; }
+
+/* ── Bottom settings ────────────────────────────── */
+.bottomNav {
+  flex-shrink: 0;
+  padding: 10px;
+  border-top: 1px solid var(--border);
+}
+
+.userRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  transition: background var(--transition);
+  overflow: hidden;
+}
+
+.userRow:hover { background: var(--surface-2); }
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--primary-20);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.userInfo { overflow: hidden; }
+
+.userName {
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userEmail {
+  font-size: 12px;
+  color: var(--secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar.collapsed .userInfo { display: none; }

@@ -3,15 +3,13 @@ import time
 from fastapi import APIRouter, HTTPException, Request
 
 from app.core.logger import logger
-from app.services.llm import generate_response
 from app.services.prompt_builder import build_prompt
-from app.services.retriever import retrieve
 
 router = APIRouter()
 
 
 @router.post("/chat")
-async def chat(
+def chat(
     request: Request,
     query: str,
 ):
@@ -22,10 +20,16 @@ async def chat(
 
         retrieval_start = time.perf_counter()
 
-        results = retrieve(
+        # 1️⃣ Hybrid retrieval via RetrievalService
+        settings_service = getattr(request.app.state, "settings_service", None)
+        cfg = settings_service._current_config if settings_service else {}
+        top_k = int(cfg.get("top_k", 5))
+        rerank_enabled = bool(cfg.get("rerank_enabled", True))
+
+        results = request.app.state.retrieval_service.retrieve(
             query=query,
-            vector_store=request.app.state.vector_store,
-            bm25_store=request.app.state.bm25_store,
+            top_k=top_k,
+            rerank_enabled=rerank_enabled,
         )
 
         logger.info(
@@ -34,29 +38,21 @@ async def chat(
             time.perf_counter() - retrieval_start,
         )
 
-        documents = [
-            result["document"]
-            for result in results
-        ]
+        documents = [result["document"] for result in results]
 
-        prompt = build_prompt(
-            query=query,
-            documents=documents,
-        )
+        # 2️⃣ Build prompt with rich metadata and call LLM
+        prompt = build_prompt(query=query, documents=documents)
 
         llm_start = time.perf_counter()
 
-        answer = generate_response(prompt)
+        answer = request.app.state.llm_provider.generate(prompt)
 
         logger.info(
             "LLM response generated in %.2fs",
             time.perf_counter() - llm_start,
         )
 
-        logger.info(
-            "Chat completed in %.2fs",
-            time.perf_counter() - start,
-        )
+        logger.info("Chat completed in %.2fs", time.perf_counter() - start)
 
         return {
             "query": query,
